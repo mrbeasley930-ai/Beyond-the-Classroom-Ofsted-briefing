@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond the Classroom — Ofsted briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* One visual world: a dark lecture-hall stage, brass accent for the school's claims, teal for evidence. 1280x720 slides scaled to fit. */
+:root{
+  --stage:#0d1724; --panel:#152234; --panel2:#1b2b41; --line:#2a3d57;
+  --ink:#eef2f7; --muted:#9fb0c6; --brass:#d9a441; --teal:#3cb7a6; --rose:#e0736a; --sky:#7fa8e0;
+  --display:"Fraunces",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:#070d16;color:var(--ink);font-family:var(--body);overflow:hidden}
+button{font-family:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+#wrap{position:fixed;inset:0 0 56px 0;display:flex;align-items:center;justify-content:center}
+#deck{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.slide{position:absolute;inset:0;background:var(--stage);border-radius:6px;padding:56px 72px 48px;display:none;flex-direction:column;overflow:hidden;
+  background-image:radial-gradient(1200px 500px at 100% 0%,rgba(217,164,65,.07),transparent 60%),radial-gradient(900px 500px at 0% 100%,rgba(60,183,166,.06),transparent 60%)}
+.slide.on{display:flex}
+.kick{font:600 13px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin-bottom:14px;display:flex;gap:14px;align-items:center}
+.kick .tk{color:var(--teal)}
+h1,h2{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h2{font-size:42px;line-height:1.1;margin-bottom:10px}
+.sub{color:var(--muted);font-size:20px;line-height:1.45;max-width:900px;margin:0 0 26px}
+.grid{display:grid;gap:16px}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:16.5px;line-height:1.5}
+.card .ref{font:500 12px var(--mono);color:var(--brass);margin-top:10px;display:block}
+.chip{display:inline-block;font:600 11px var(--mono);letter-spacing:.06em;padding:4px 9px;border-radius:20px;white-space:nowrap}
+.chip.live{background:rgba(60,183,166,.18);color:var(--teal)}
+.chip.built{background:rgba(217,164,65,.18);color:var(--brass)}
+.chip.plan{background:rgba(127,168,224,.18);color:var(--sky)}
+.chip.prop{background:rgba(224,115,106,.16);color:var(--rose)}
+.sample{font:600 11px var(--mono);letter-spacing:.08em;color:var(--rose);border:1px dashed var(--rose);border-radius:6px;padding:4px 8px}
+.foot{position:absolute;left:72px;right:72px;bottom:20px;display:flex;justify-content:space-between;font:500 12px var(--mono);color:#5f7290}
+.btn{font:600 14px var(--body);border:0;border-radius:8px;padding:9px 14px;cursor:pointer;background:var(--brass);color:#1a1205}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:6px 10px;font-size:13px}
+input,select{font:15px var(--body);padding:9px 11px;border:1px solid var(--line);border-radius:8px;width:100%;background:var(--panel2);color:var(--ink)}
+textarea{font:14px var(--body);padding:8px 10px;border:1px solid var(--line);border-radius:8px;width:100%;background:var(--panel2);color:var(--ink);min-height:50px;resize:none}
+label{font-size:12.5px;font-weight:600;color:var(--muted);display:block;margin:8px 0 4px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td{font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:5px;background:#24364f;overflow:hidden;min-width:120px}
+.bar i{display:block;height:100%;background:var(--teal)}
+
+/* title */
+.title-slide{justify-content:center}
+.title-slide h1{font-size:88px;line-height:1;margin-bottom:18px}
+.title-slide .lead{font-size:24px;color:var(--muted);max-width:820px;line-height:1.4}
+.strips{position:absolute;right:0;top:0;bottom:0;width:300px;display:flex;gap:0}
+.strips i{flex:1;opacity:.85}
+.title-slide .who{margin-top:44px;font:500 15px var(--mono);color:var(--muted);line-height:1.8}
+.title-slide .who b{color:var(--ink);font-weight:600}
+
+/* numbers */
+.num{font-family:var(--display);font-size:66px;line-height:1;color:var(--brass);font-variant-numeric:tabular-nums}
+.numlab{font-size:16px;color:var(--muted);margin-top:8px;line-height:1.4}
+
+/* subjects */
+.subjects{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}
+.subj{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:9px;padding:9px 10px;cursor:pointer;text-align:left;color:var(--ink)}
+.subj:hover,.subj.sel{background:var(--panel2);border-color:var(--c)}
+.subj b{display:block;font-size:13.5px;line-height:1.25}
+.subj span{font-size:12.5px;color:var(--muted)}
+#subjDetail{margin-top:16px;min-height:96px}
+
+/* ambition */
+.amb{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.amb .card{border-left:4px solid var(--c)}
+.amb .card h3{font-size:18.5px}
+.amb .card p{font-size:16px}
+.amb .card{padding:20px 22px}
+.amb .tag{font:600 11px var(--mono);letter-spacing:.06em;color:var(--c);text-transform:uppercase;display:block;margin-bottom:6px}
+
+/* pupil demo */
+.demo{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;flex:1;min-height:0}
+.item{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;background:var(--panel)}
+.item .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.item .fam{font:600 11px var(--mono);color:var(--teal);letter-spacing:.06em;text-transform:uppercase}
+.item .t{font-size:14.5px}
+.item.done{border-color:var(--teal)}
+.item .note{display:none;margin-top:6px}.item.open .note{display:block}
+.item .need{font-size:12px;color:var(--rose);margin-top:4px}
+pre.json{background:#08111c;border:1px solid var(--line);color:#cfe0f2;border-radius:10px;padding:14px;margin:0;font:12.5px/1.55 var(--mono);height:340px;overflow:auto;white-space:pre-wrap}
+pre.json .k{color:var(--sky)}pre.json .s{color:#b5e3a0}pre.json .c{color:#5f7290}
+.err{color:var(--rose);font-size:13px;min-height:18px;margin:6px 0}
+.local{font-size:13px;margin-top:10px;background:rgba(224,115,106,.12);border:1px solid rgba(224,115,106,.4);padding:8px 10px;border-radius:8px}
+
+/* tracker */
+.tabs{display:flex;gap:8px;margin-bottom:14px;align-items:center}
+.tabs button{font:600 13px var(--body);border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:20px;padding:7px 14px;cursor:pointer}
+.tabs button.on{background:var(--teal);border-color:var(--teal);color:#062320}
+.tabs .sample{margin-left:auto}
+#trackerView{flex:1;min-height:0;overflow:auto}
+.never{color:var(--rose);font-weight:600}
+.copybox{margin-top:8px;background:#08111c;border:1px dashed var(--line);border-radius:8px;padding:10px;font:13px/1.5 var(--mono);white-space:pre-wrap;color:#cfe0f2}
+
+/* access list */
+.access{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.acc{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.acc .n{flex:0 0 30px;height:30px;border-radius:8px;background:rgba(60,183,166,.16);color:var(--teal);font:700 14px var(--mono);display:flex;align-items:center;justify-content:center}
+.acc b{display:block;font-size:17.5px;margin-bottom:4px}
+.acc span{color:var(--muted);font-size:15.5px;line-height:1.45}
+
+/* map table */
+.map td:first-child{font-weight:600;width:22%}
+.map td{font-size:16px;line-height:1.45;padding:12px}
+.map td:nth-child(2),.map td:nth-child(3){color:#c9d5e4}
+
+/* controls */
+.ctl td{font-size:15.5px;padding:10px 12px}
+.ctl td:first-child{font-weight:600;width:24%}
+
+/* nav bar */
+#bar{position:fixed;left:0;right:0;bottom:0;height:56px;display:flex;align-items:center;gap:12px;padding:0 18px;background:#070d16;border-top:1px solid #172437}
+#bar .count{font:600 13px var(--mono);color:var(--muted);min-width:70px}
+#bar .prog{flex:1;height:4px;background:#172437;border-radius:3px;overflow:hidden}
+#bar .prog i{display:block;height:100%;background:var(--brass);transition:width .25s}
+#bar .hint{font:12px var(--mono);color:#5f7290}
+#toast{position:fixed;left:50%;bottom:72px;transform:translateX(-50%);background:var(--teal);color:#062320;font-weight:600;padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+.hide{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="wrap"><div id="deck">
+
+<!-- 1 TITLE -->
+<section class="slide title-slide" data-name="title">
+  <div class="strips" id="strips"></div>
+  <div class="kick">King Edward VI Five Ways · Sixth form</div>
+  <h1>Beyond the<br>Classroom</h1>
+  <p class="lead">The sixth-form supercurriculum: seventeen subject pages, one tracker, and a written record of every activity a student completes.</p>
+  <div class="who"><b>Simon Beasley</b>, Head of Classics<br>Mock inspection briefing · November 2026</div>
+</section>
+
+<!-- 2 TOOLKIT -->
+<section class="slide" data-name="toolkit">
+  <div class="kick">The brief <span class="tk">Ofsted school inspection toolkit</span></div>
+  <h2>What inspectors will look for</h2>
+  <p class="sub">The supercurriculum sits across three evaluation areas. These are the expectations it was built to meet.</p>
+  <div class="grid c3">
+    <div class="card"><h3>Wider opportunities</h3><p>A suitable range of wider and non-qualification activities in the sixth form.</p><span class="ref">Post-16 · p.66</span></div>
+    <div class="card"><h3>Every background takes part</h3><p>Students from all backgrounds participate, and leaders regularly evaluate the impact.</p><span class="ref">Post-16 · p.66</span></div>
+    <div class="card"><h3>Ready for the next step</h3><p>Students understand the options open to them and are prepared to progress, with links to higher education.</p><span class="ref">Post-16 · p.66</span></div>
+    <div class="card"><h3>Participation is tracked</h3><p>At the strong standard, leaders know their pupils and track who takes part.</p><span class="ref">Personal development · pp.51–52</span></div>
+    <div class="card"><h3>Barriers removed</h3><p>Adjustments let disadvantaged pupils and pupils with SEND take part fully.</p><span class="ref">Personal development · p.52 · Inclusion · p.15</span></div>
+    <div class="card"><h3>Talents extended</h3><p>Interests nurtured through a range of opportunities; pupils engage with views that differ from their own.</p><span class="ref">Personal development · pp.47–48</span></div>
+  </div>
+  <div class="foot"><span>Toolkit for use from September 2026</span><span>02</span></div>
+</section>
+
+<!-- 3 NUMBERS -->
+<section class="slide" data-name="scale">
+  <div class="kick">The offer <span class="tk">Wider opportunities</span></div>
+  <h2>A supercurriculum for every A-level subject</h2>
+  <p class="sub">Every activity is free and online, chosen to go beyond the specification, and linked to the original source.</p>
+  <div class="grid c4" style="margin-bottom:22px">
+    <div class="card"><div class="num">21</div><div class="numlab">subjects with a printed overview of their activities</div></div>
+    <div class="card"><div class="num">17</div><div class="numlab">tracked subject pages, each with its own design</div></div>
+    <div class="card"><div class="num">1,079</div><div class="numlab">activities across those seventeen pages</div></div>
+    <div class="card"><div class="num">3</div><div class="numlab">dated picks per page every half term, tied to real events</div></div>
+  </div>
+  <div class="grid c3">
+    <div class="card"><h3>Six kinds of activity</h3><p>Watch, listen, read, do, enter and apply: talks, lectures, podcasts, reading, competitions, and university and career preparation.</p></div>
+    <div class="card"><h3>Kept current</h3><p>Several pages refresh subject news each morning from public feeds. Each half term every page gets new picks and new activities.</p></div>
+    <div class="card"><h3>Built with departments</h3><p>Heads of department checked their lists and asked for additions: Art's podcasts, History's podcast rack, Psychology's free courses, DT's workshop projects.</p></div>
+  </div>
+  <div class="foot"><span>Beyond the Classroom</span><span>03</span></div>
+</section>
+
+<!-- 4 SUBJECTS -->
+<section class="slide" data-name="subjects">
+  <div class="kick">The offer <span class="tk">Pupils engage</span></div>
+  <h2>Seventeen subjects, seventeen designs</h2>
+  <p class="sub">Each page works the same way underneath. On the surface each one is built around an idea from its own subject, so students see it as part of the subject. Select a subject.</p>
+  <div class="subjects" id="subjects"></div>
+  <div class="card" id="subjDetail"></div>
+  <div class="foot"><span>Beyond the Classroom</span><span>04</span></div>
+</section>
+
+<!-- 5 AMBITION -->
+<section class="slide" data-name="ambition">
+  <div class="kick">The offer <span class="tk">Talents extended</span></div>
+  <h2>Built from real material, at university level</h2>
+  <p class="sub">The activities use primary sources, real data and national competitions rather than summaries.</p>
+  <div class="amb">
+    <div class="card" style="--c:#4f8fc4"><span class="tag">Economics</span><h3>Reading the MPC's own data</h3><p>Students read the Bank of England's papers and vote on each interest-rate decision, with written reasons, before the real result is published.</p></div>
+    <div class="card" style="--c:#5aa36e"><span class="tag">Politics</span><h3>Voting on real divisions</h3><p>Students vote on real Commons divisions and compare their vote with the result. A daily Order Paper covers UK and US news.</p></div>
+    <div class="card" style="--c:#9a86d0"><span class="tag">Philosophy</span><h3>Primary texts, labelled</h3><p>Plato, Anselm, Aquinas and the early moderns in the original translations. Every anecdote is labelled attested, reported or legend.</p></div>
+    <div class="card" style="--c:#e07a5f"><span class="tag">Engineering</span><h3>Workshop projects</h3><p>3D printing, laser cutting and lathe projects with build logs, alongside revision binders for all nine OCR H404 topic areas.</p></div>
+    <div class="card" style="--c:#4fb38a"><span class="tag">French</span><h3>Writing in French on today's news</h3><p>Live headlines from nine French outlets, tagged to the Edexcel themes. Students write two sentences in French on each article they read.</p></div>
+    <div class="card" style="--c:#d9a441"><span class="tag">Across subjects</span><h3>National competitions</h3><p>Physics and Chemistry Olympiads, the Linguistics Olympiad, Ritangle, Bebras, the RGS essay prize and the John Locke prize.</p></div>
+  </div>
+  <div class="foot"><span>Beyond the Classroom</span><span>05</span></div>
+</section>
+
+<!-- 6 PUPIL DEMO -->
+<section class="slide" data-name="pupil">
+  <div class="kick">The pupil side <span class="tk">Learning is recorded</span></div>
+  <h2>Every activity leaves a written record</h2>
+  <p class="sub" style="margin-bottom:16px">An activity only counts once the student writes what they took from it. Try it with an invented student.</p>
+  <div class="demo">
+    <div>
+      <div id="signin" class="card">
+        <div class="grid c2" style="gap:12px">
+          <div><label for="inForm">Form group</label><select id="inForm"><option>12A</option><option>12B</option><option>12C</option></select></div>
+          <div><label for="inPin">4-digit PIN</label><input id="inPin" inputmode="numeric" maxlength="4" placeholder="1234"></div>
+        </div>
+        <label for="inName">First name and surname initial</label>
+        <input id="inName" placeholder="Priya S">
+        <div class="err" id="inErr"></div>
+        <button class="btn" id="goIn">Sign in</button>
+        <p style="font-size:13px;color:var(--muted);margin:10px 0 0">A full surname is refused, so full names never reach the store.</p>
+      </div>
+      <div id="pupilPage" class="hide">
+        <div id="items"></div>
+        <div style="display:flex;gap:8px;align-items:center;margin-top:4px">
+          <div class="bar" style="flex:1;height:10px"><i id="prog" style="width:0"></i></div>
+          <span id="progTxt" style="font:12px var(--mono);color:var(--muted)"></span>
+          <button class="btn ghost sm" id="signout">Sign out</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="font:600 12px var(--mono);letter-spacing:.06em;color:var(--muted);margin-bottom:8px">WHAT THE DEPARTMENT AND TUTOR RECEIVE</div>
+      <pre class="json" id="json"></pre>
+      <div id="voteNote" class="local hide"></div>
+    </div>
+  </div>
+  <div class="foot"><span>Invented student · nothing is saved</span><span>06</span></div>
+</section>
+
+<!-- 7 TRACKER -->
+<section class="slide" data-name="tracker">
+  <div class="kick">Leadership <span class="tk">Participation tracked</span></div>
+  <h2>One tracker shows who is taking part</h2>
+  <p class="sub" style="margin-bottom:14px">Three views of the same records: the sixth-form team, each head of department and each form tutor.</p>
+  <div class="tabs" id="tabs"><span class="sample">SAMPLE DATA</span></div>
+  <div id="trackerView"></div>
+  <div class="foot"><span>Figures shown are invented for the demonstration</span><span>07</span></div>
+</section>
+
+<!-- 8 ACCESS -->
+<section class="slide" data-name="access">
+  <div class="kick">Inclusion <span class="tk">Every background takes part</span></div>
+  <h2>Reaching every student, disadvantaged and SEND first</h2>
+  <p class="sub">Access is built into the design. The tracker then shows who has not started, so staff can follow them up by name.</p>
+  <div class="access">
+    <div class="acc"><div class="n">1</div><div><b>Free to every student</b><span>Every activity is free and online. No trip costs, tickets or subscriptions stand between a student and the offer.</span></div></div>
+    <div class="acc"><div class="n">2</div><div><b>Works on a phone, and on paper</b><span>Pages are checked at phone width. The printed overview covers every activity for students who prefer paper.</span></div></div>
+    <div class="acc"><div class="n">3</div><div><b>A clear place to start</b><span>Three dated picks each half term and a "start here" set on each page, so nobody faces ninety choices with no guidance.</span></div></div>
+    <div class="acc"><div class="n">4</div><div><b>Readable for all</b><span>Short activity descriptions, plain instructions and an on-screen guide on each page. A backup button means work is not lost.</span></div></div>
+    <div class="acc"><div class="n">5</div><div><b>Not-started lists</b><span>The department view lists every student who has not begun, by name, for the department and the tutor to follow up.</span></div></div>
+    <div class="acc"><div class="n">6</div><div><b>Disadvantaged and SEND view <span class="chip prop">PROPOSED</span></b><span>The tracker marks students on the school's PP and SEND lists in the browser, so participation by group can be reviewed without storing that status.</span></div></div>
+  </div>
+  <div class="foot"><span>Beyond the Classroom</span><span>08</span></div>
+</section>
+
+<!-- 9 PROGRESSION -->
+<section class="slide" data-name="progression">
+  <div class="kick">Next steps <span class="tk">Ready to progress</span></div>
+  <h2>From activity to personal statement</h2>
+  <p class="sub">The notes students write in Year 12 become the evidence for their applications.</p>
+  <div class="grid c3" style="margin-bottom:18px">
+    <div class="card"><h3>University partners</h3><p>Lecture series from Birmingham, Oxford, Cambridge and the Royal Institution, and taster courses, on the pages of the relevant subjects.</p></div>
+    <div class="card"><h3>Admissions information</h3><p>"Apply" activities link each subject to current course and admissions pages, checked this term. Oxford Classics, for example, is now one four-year course with no admissions test.</p></div>
+    <div class="card"><h3>Copy for UCAS</h3><p>The tutor view gathers a student's notes from every subject into one list, so the personal statement starts from evidence.</p></div>
+  </div>
+  <div class="card" style="display:flex;gap:22px;align-items:center">
+    <div style="flex:0 0 auto"><div class="num" style="font-size:52px">Y12</div></div>
+    <div style="font:14px/1.6 var(--mono);color:#cfe0f2">Tom H, supercurricular notes<br>• Classical Civilisation: BMCA lecture on Homeric similes; the lion simile in Book 22 is about loss, not only violence.<br>• English Literature: read the Paris Review interview with Heaney.</div>
+  </div>
+  <div class="foot"><span>Invented student</span><span>09</span></div>
+</section>
+
+<!-- 10 CONSISTENCY -->
+<section class="slide" data-name="consistency">
+  <div class="kick">Leadership <span class="tk">Consistency and workload</span></div>
+  <h2>One system across every department</h2>
+  <p class="sub">The same pattern runs in all seventeen subjects, so students and staff meet the same routines wherever they go.</p>
+  <div class="card" style="padding:4px 8px">
+    <table>
+      <tr><th>When</th><th>What happens</th><th>Who</th></tr>
+      <tr><td>Each half term</td><td>New dated picks and new activities on all seventeen pages in one sitting; tracker rebuilt</td><td>Simon, with departments' additions</td></tr>
+      <tr><td>Every morning</td><td>Subject news feeds refresh</td><td>Automatic</td></tr>
+      <tr><td>Any time</td><td>A department asks for an addition; it appears marked as new</td><td>Head of department asks</td></tr>
+      <tr><td>Fortnightly</td><td>Departments and tutors check the tracker and follow up students who have not started</td><td>Heads of department, tutors</td></tr>
+      <tr><td>Summer of Year 12</td><td>Copy for UCAS used in personal statement meetings</td><td>Tutors and students</td></tr>
+    </table>
+  </div>
+  <div class="grid c2" style="margin-top:16px">
+    <div class="card"><h3>No data entry for departments</h3><p>Check the activity list once and point students to the page.</p></div>
+    <div class="card"><h3>No data entry for tutors</h3><p>Open the form view in one-to-ones and UCAS meetings.</p></div>
+  </div>
+  <div class="foot"><span>Beyond the Classroom</span><span>10</span></div>
+</section>
+
+<!-- 11 SAFE -->
+<section class="slide" data-name="safe">
+  <div class="kick">Leadership <span class="tk">Safe and lawful</span></div>
+  <h2>Data protection built in</h2>
+  <p class="sub" style="margin-bottom:14px">The system keeps the minimum needed to show participation. Political opinions, religious belief and health information never leave the student's device.</p>
+  <div class="card" style="padding:4px 8px">
+    <table class="ctl">
+      <tr><th>Control</th><th>What it does</th><th>Status</th></tr>
+      <tr><td>Names</td><td>First name and surname initial only, with form group</td><td><span class="chip live">IN PLACE</span></td></tr>
+      <tr><td>Opinions</td><td>Economics and Politics votes and reasons stay on the device</td><td><span class="chip live">IN PLACE</span></td></tr>
+      <tr><td>DPIA</td><td>Annex to the school's existing DPIA, updated as the system changes</td><td><span class="chip live">IN PLACE</span></td></tr>
+      <tr><td>PIN</td><td>Four digits, stored only as a hash; already live on the Y8–11 Latin pages</td><td><span class="chip built">BUILT</span></td></tr>
+      <tr><td>Audit trail</td><td>Every change logged, earlier versions restorable, a named key for each member of staff</td><td><span class="chip built">BUILT</span></td></tr>
+      <tr><td>Export and delete</td><td>One student's record, for access and erasure requests</td><td><span class="chip built">BUILT</span></td></tr>
+      <tr><td>Ownership and retention</td><td>Store moves to a trust-held account; records deleted the August after leaving</td><td><span class="chip plan">AGREED</span></td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>IN PLACE running now · BUILT tested, switched on at go-live · AGREED with the trust and DPO</span><span>11</span></div>
+</section>
+
+<!-- 12 MAP -->
+<section class="slide" data-name="evidence">
+  <div class="kick">Summary <span class="tk">Toolkit to evidence</span></div>
+  <h2>What an inspector can see</h2>
+  <div class="card" style="padding:4px 8px;margin-top:8px">
+    <table class="map">
+      <tr><th>Toolkit expectation</th><th>What we do</th><th>Evidence to show</th></tr>
+      <tr><td>Wider opportunities (Post-16)</td><td>1,079 activities across seventeen subjects, renewed each half term</td><td>Any subject page; the printed overviews</td></tr>
+      <tr><td>All backgrounds take part</td><td>Free, online, phone and paper; not-started lists by name</td><td>Department view; follow-up records</td></tr>
+      <tr><td>Leaders evaluate impact</td><td>One tracker across all subjects with dates and notes</td><td>Whole-school view; termly review</td></tr>
+      <tr><td>Ready to progress</td><td>University lectures, admissions pages, Copy for UCAS</td><td>Form view; personal statement drafts</td></tr>
+      <tr><td>Talents extended, views debated</td><td>Primary sources, competitions, votes with written reasons</td><td>Students' notes; competition entries</td></tr>
+      <tr><td>Consistency</td><td>One pattern and one routine in every department</td><td>Seventeen pages side by side</td></tr>
+    </table>
+  </div>
+  <div class="foot"><span>Beyond the Classroom</span><span>12</span></div>
+</section>
+
+<!-- 13 NEXT -->
+<section class="slide" data-name="next">
+  <div class="kick">Next steps</div>
+  <h2>What happens next</h2>
+  <p class="sub">Four steps take the system from built to running for every sixth-form student.</p>
+  <div class="grid c2">
+    <div class="acc"><div class="n">1</div><div><b>Move the store to the trust</b><span>A trust-held account under the data processing agreement, with IT support holding the keys.</span></div></div>
+    <div class="acc"><div class="n">2</div><div><b>Switch on and launch</b><span>PIN, audit trail and export switched on; all seventeen pages live to students through form time.</span></div></div>
+    <div class="acc"><div class="n">3</div><div><b>Add the group view</b><span>Participation by disadvantaged and SEND students shown in the tracker, for departments and the sixth-form team.</span></div></div>
+    <div class="acc"><div class="n">4</div><div><b>Review impact each term</b><span>Participation by subject, form and group reported to the sixth-form team, with actions for students who have not started.</span></div></div>
+  </div>
+  <div class="foot"><span>Beyond the Classroom</span><span>13</span></div>
+</section>
+
+</div></div>
+
+<div id="bar">
+  <button class="btn ghost sm" id="prev" aria-label="Previous slide">← Back</button>
+  <button class="btn sm" id="next" aria-label="Next slide">Next →</button>
+  <span class="count" id="count"></span>
+  <div class="prog"><i id="progbar"></i></div>
+  <span class="hint">Arrow keys to move · F for full screen</span>
+</div>
+<div id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1800)}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+/* ---------- deck ---------- */
+const slides=$$('.slide'); let cur=0;
+function fit(){const w=window.innerWidth-24,h=window.innerHeight-56-24;const s=Math.min(w/1280,h/720);$('#deck').style.transform=`scale(${s})`}
+function go(i){cur=Math.max(0,Math.min(slides.length-1,i));slides.forEach((s,j)=>s.classList.toggle('on',j===cur));
+  $('#count').textContent=`${cur+1} / ${slides.length}`;$('#progbar').style.width=((cur+1)/slides.length*100)+'%';
+  try{history.replaceState(null,'','#'+slides[cur].dataset.name)}catch(e){}}
+$('#prev').onclick=()=>go(cur-1);$('#next').onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea,select'))return;
+  if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}
+  if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}
+  if(e.key==='f'||e.key==='F'){try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}catch(err){}}});
+window.addEventListener('resize',fit);
+window.addEventListener('hashchange',()=>{const i=slides.findIndex(s=>s.dataset.name===location.hash.slice(1));if(i>=0&&i!==cur)go(i)});
+
+/* ---------- subjects ---------- */
+const SUBJ=[
+ ['Classical Civilisation','The Cave','#c49a5a','Plato\'s cave. Students climb from the shadows on the wall to daylight, and the page brightens as they progress. Daily news feed, "The Mouth of the Cave". Live to students.'],
+ ['Chemistry','The model page','#3cb7a6','The first tracked page. It set the pattern every other page follows: sign-in, families of activity, written notes, backup button.'],
+ ['Physics','The Lab','#5b8fd6','A working physics lab with a lab-technician guide and a "physics in the news" feed. Olympiads, Isaac Physics and university lecture series.'],
+ ['Biology','Field Expedition','#5aa36e','A map of six habitats with a field-leader guide; progress is shown as an index of diversity.'],
+ ['Art','The Underpass','#e0736a','A street-art wall with a magpie guide, including the four podcasts the department asked for.'],
+ ['Philosophy','The Walk','#9a86d0','Six stretches from Athens to Kyoto\'s Philosopher\'s Path. Every anecdote carries its source and a label: attested, reported or legend.'],
+ ['Economics','The Tenth Chair','#4f8fc4','The student sits with the Bank of England\'s Monetary Policy Committee, reads the real data and votes before each decision.'],
+ ['English Lang & Lit','The Scriptorium','#c9a26b','Murray\'s Oxford English Dictionary shed, with pigeonholes and a slip box.'],
+ ['English Literature','The Lighthouse','#6aa4c4','Six floors, a beam reaching out to sea and a keeper\'s log.'],
+ ['French','Le Kiosque','#4fb38a','A Paris news kiosk. Live French headlines tagged to the Edexcel themes; students write two sentences in French on each one.'],
+ ['Maths & Further Maths','Hilbert\'s Hotel','#c46aa0','One infinite hotel with a Further Maths wing.'],
+ ['Psychology','Tracked page to come','#d08a5a','The printed overview is ready, with forty free online courses and three work-experience placements from the department. The tracked page, The Participant Pool, is still to be built. It will record "took part" only.'],
+ ['Engineering','The Garage','#e07a5f','An F1 race-team garage: revision binders for OCR H404 and workshop project cards.'],
+ ['Geography','The Overpass','#5aa0bf','An Earth-observation satellite making six passes, with a live hazard board.'],
+ ['Music','The Score','#8a8ad0','A full score on a stand; each activity is one bar. Daily Radio 3 programme.'],
+ ['Computer Science','The Repo','#9fb0c6','The student\'s own code repository with a contributions graph and a rubber-duck guide.'],
+ ['History','The History Line','#c45a5a','A station departure board, with a rack of the department\'s 47 recommended podcasts.'],
+ ['Politics','The Division Lobby','#5aa36e','The student arrives as a new MP. Daily Order Paper of UK and US news; votes on real Commons divisions.']
+];
+$('#strips').innerHTML=SUBJ.map(s=>`<i style="background:${s[2]}"></i>`).join('');
+$('#subjects').innerHTML=SUBJ.map((s,i)=>`<button class="subj" data-i="${i}" style="--c:${s[2]}"><b>${esc(s[0])}</b><span>${esc(s[1])}</span></button>`).join('');
+function pickSubj(i){$$('.subj').forEach(x=>x.classList.toggle('sel',+x.dataset.i===i));const s=SUBJ[i];
+  $('#subjDetail').innerHTML=`<h3 style="color:${s[2]};font-family:var(--display);font-size:24px">${esc(s[0])}: ${esc(s[1])}</h3><p style="font-size:17px">${esc(s[3])}</p>`}
+$('#subjects').addEventListener('click',e=>{const d=e.target.closest('.subj');if(d)pickSubj(+d.dataset.i)});pickSubj(0);
+
+/* ---------- pupil demo ---------- */
+const ITEMS=[
+ {id:'C07',fam:'Listen',t:'In Our Time: The Odyssey (BBC Radio 4)'},
+ {id:'C21',fam:'Do · this half term',t:'Classical Association lecture, Thu 19 Nov'},
+ {id:'C33',fam:'Read',t:'Mary Beard, SPQR, chapter 1'},
+ {id:'E12',fam:'Economics · The Tenth Chair',t:'MPC decision: hold or cut Bank Rate?',vote:true}
+];
+let pupil=null,state={};
+function render(){
+  $('#items').innerHTML=ITEMS.map(it=>{const s=state[it.id]||{};
+    if(it.vote)return `<div class="item ${s.voted?'done':''}" data-id="${it.id}"><div class="fam">${it.fam}</div><div class="t" style="margin:3px 0 7px">${it.t}</div>
+      <div style="display:flex;gap:6px;align-items:center"><button class="btn sm ${s.vote==='Hold'?'':'ghost'}" data-vote="Hold">Hold</button><button class="btn sm ${s.vote==='Cut'?'':'ghost'}" data-vote="Cut">Cut</button>
+      <input data-reason placeholder="Your reason" value="${esc(s.reason||'')}" style="padding:6px 9px;font-size:13.5px"></div></div>`;
+    return `<div class="item ${s.done?'done open':''}" data-id="${it.id}"><div class="top"><div><div class="fam">${it.fam}</div><div class="t">${it.t}</div></div>
+      <button class="btn sm ${s.done?'':'ghost'}" data-done>${s.done?'Done ✓':'Mark done'}</button></div>
+      <div class="note"><textarea data-note placeholder="What did you take from it? Two or three sentences.">${esc(s.note||'')}</textarea>${s.done&&!(s.note||'').trim()?'<div class="need">Write a note to count this activity.</div>':''}</div></div>`}).join('');
+  const n=ITEMS.filter(it=>{const s=state[it.id]||{};return it.vote?s.voted:(s.done&&(s.note||'').trim())}).length;
+  $('#prog').style.width=(n/ITEMS.length*100)+'%';$('#progTxt').textContent=`${n} of ${ITEMS.length} counted`;
+  renderJSON();
+}
+function renderJSON(){
+  if(!pupil){$('#json').innerHTML='<span class="c">// Nothing sent yet. Sign in first.</span>';$('#voteNote').classList.add('hide');return}
+  const items={};let voted=0;
+  ITEMS.forEach(it=>{const s=state[it.id]||{};if(it.vote){if(s.voted)voted++;return}
+    if(s.done)items[it.id]={done:true,date:s.date,note:s.note||''}});
+  const rec={subject:'Classical Civilisation',form:pupil.form,name:pupil.name,items,economics:{votes_cast:voted}};
+  $('#json').innerHTML=JSON.stringify(rec,null,2).replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/"([^"]+)":/g,'<span class="k">"$1"</span>:').replace(/: "([^"]*)"/g,': <span class="s">"$1"</span>');
+  const v=state.E12||{};
+  if(v.vote){$('#voteNote').classList.remove('hide');$('#voteNote').innerHTML=`<b>Kept on this device only:</b> the vote "${esc(v.vote)}"${v.reason?' and its reason':''}. A vote with a reason is a political opinion, so the record shows only that a vote was cast.`}
+  else $('#voteNote').classList.add('hide');
+}
+$('#goIn').onclick=()=>{const name=$('#inName').value.trim(),pin=$('#inPin').value.trim(),err=$('#inErr');
+  if(!/^[A-Za-z'\-]{2,}\s[A-Za-z]$/.test(name)){err.textContent=/\s[A-Za-z]{2,}$/.test(name)?'Use your first name and surname initial only, for example Priya S.':'Enter your first name and surname initial, for example Priya S.';return}
+  if(!/^\d{4}$/.test(pin)){err.textContent='Your PIN is four digits.';return}
+  err.textContent='';pupil={form:$('#inForm').value,name:name.replace(/\b\w/g,c=>c.toUpperCase())};
+  $('#signin').classList.add('hide');$('#pupilPage').classList.remove('hide');render();toast('Signed in')};
+$('#items').addEventListener('click',e=>{const item=e.target.closest('.item');if(!item)return;const id=item.dataset.id;state[id]=state[id]||{};
+  if(e.target.matches('[data-done]')){const s=state[id];s.done=!s.done;s.date=s.done?new Date().toISOString().slice(0,10):undefined;render();
+    if(s.done){const ta=document.querySelector(`.item[data-id="${id}"] textarea`);ta&&ta.focus()}}
+  if(e.target.dataset.vote){state[id].vote=e.target.dataset.vote;state[id].voted=true;render()}});
+$('#items').addEventListener('input',e=>{const item=e.target.closest('.item');if(!item)return;const id=item.dataset.id;state[id]=state[id]||{};
+  if(e.target.matches('[data-note]')){state[id].note=e.target.value;renderJSON();
+    const n=ITEMS.filter(it=>{const s=state[it.id]||{};return it.vote?s.voted:(s.done&&(s.note||'').trim())}).length;
+    $('#prog').style.width=(n/ITEMS.length*100)+'%';$('#progTxt').textContent=`${n} of ${ITEMS.length} counted`;
+    const need=item.querySelector('.need');if(need&&e.target.value.trim())need.remove()}
+  if(e.target.matches('[data-reason]')){state[id].reason=e.target.value;renderJSON()}});
+$('#signout').onclick=()=>{pupil=null;state={};$('#pupilPage').classList.add('hide');$('#signin').classList.remove('hide');$('#inPin').value='';renderJSON()};
+renderJSON();
+
+/* ---------- tracker ---------- */
+const DEPTS=[['Classical Civilisation',73,24,61],['Chemistry',58,41,48],['Physics',64,38,35],['Biology',55,46,52],['History',88,52,44],['Economics',53,49,29],['Politics',91,31,57],['French',83,18,72]];
+const PUPILS=[['Aisha K','12A',14,'2 days ago','Olympiad practice paper: equilibrium questions were hardest.'],['Chloe W','12C',19,'today','Royal Society of Chemistry lecture on battery materials.'],['Dev P','12B',8,'last week','Periodic Videos on the noble gases.'],['Ben O','12A',3,'3 weeks ago','—'],['Grace L','12A',0,'never','—']];
+const FORM=[['Priya S',[['History',9,'Jam Tomorrow on the 1906 election made me rethink why Labour grew so fast.'],['Politics',6,'Watched the Budget division and voted before seeing the result.']]],
+ ['Tom H',[['Classical Civilisation',11,'BMCA lecture on Homeric similes: the lion simile in Book 22 is about loss, not only violence.'],['English Literature',4,'Read the Paris Review interview with Heaney.']]],
+ ['Grace L',[]]];
+const VIEWS=[['school','Sixth-form team'],['dept','Head of department: Chemistry'],['form','Tutor: 12A']];let view='school';
+$('#tabs').insertAdjacentHTML('afterbegin',VIEWS.map(v=>`<button data-v="${v[0]}">${v[1]}</button>`).join(''));
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(b){view=b.dataset.v;renderTracker()}});
+function renderTracker(){$$('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===view));let h='';
+  if(view==='school')h=`<div class="card" style="padding:4px 8px"><table><tr><th>Subject</th><th>Activities</th><th>Students signed in</th><th>Active in last 14 days</th><th></th></tr>`+
+    DEPTS.map(d=>`<tr><td>${d[0]}</td><td>${d[1]}</td><td>${d[2]}</td><td>${d[3]}%</td><td><div class="bar"><i style="width:${d[3]}%"></i></div></td></tr>`).join('')+`</table></div>`;
+  else if(view==='dept')h=`<div class="card" style="padding:4px 8px"><table><tr><th>Student</th><th>Form</th><th>Done</th><th>Last active</th><th>Latest note</th></tr>`+
+    PUPILS.map(p=>`<tr><td>${p[0]}</td><td>${p[1]}</td><td>${p[2]}</td><td>${p[3]==='never'?'<span class="never">not started</span>':p[3]}</td><td style="color:var(--muted)">${esc(p[4])}</td></tr>`).join('')+`</table></div>
+    <p style="color:var(--muted);font-size:14px;margin:10px 4px 0">Students who have not started appear by name, so the department and tutor can follow them up.</p>`;
+  else h=FORM.map((f,i)=>`<div class="card" style="margin-bottom:10px;padding:12px 16px"><div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:16px">${f[0]} <span style="font-weight:400;color:var(--muted);font-size:13.5px">· ${f[1].reduce((a,b)=>a+b[1],0)} activities in ${f[1].length} subject${f[1].length===1?'':'s'}</span></b>${f[1].length?`<button class="btn sm" data-ucas="${i}">Copy for UCAS</button>`:'<span class="never" style="font-size:13.5px">not started</span>'}</div>
+    ${f[1].map(s=>`<p style="font-size:14px;margin:6px 0 0;color:#c9d5e4"><b>${s[0]}</b> (${s[1]}): ${esc(s[2])}</p>`).join('')}<div class="copybox hide" id="ucas${i}"></div></div>`).join('');
+  $('#trackerView').innerHTML=h}
+$('#trackerView').addEventListener('click',e=>{const b=e.target.closest('[data-ucas]');if(!b)return;const f=FORM[+b.dataset.ucas];
+  const txt=`${f[0]}, supercurricular notes\n`+f[1].map(s=>`• ${s[0]}: ${s[2]}`).join('\n');const box=$('#ucas'+b.dataset.ucas);box.textContent=txt;box.classList.remove('hide');
+  try{navigator.clipboard.writeText(txt).then(()=>toast('Copied'),()=>toast('Shown below'))}catch(err){toast('Shown below')}});
+renderTracker();
+
+/* ---------- start ---------- */
+fit();const start=slides.findIndex(s=>s.dataset.name===location.hash.slice(1));go(start>=0?start:0);
+</script>
+</body>
+</html>
